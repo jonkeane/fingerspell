@@ -1,0 +1,49 @@
+%%
+%% File: fingspell.sty Copyright  2011 by Jonathan Keane
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fingspell}
+
+%% \fs{} takes a word and outputs it as a fingerspelled word
+
+\DeclareRobustCommand*\fs[1]{%
+  \let\@tempa\relax%
+  \def\@tempb{-}%
+  \@tfor\@tempc:=#1\do{%
+\textsc{\@tempa \@tempc }\let\@tempa\@tempb%
+}%
+}
+
+%% \fslist{} takes a comma separated list, and outputs each as a fingerspelled individual letter
+%% todo: is there anyway to use a noncomma separated list?
+
+\newcounter{@tempe}
+\makeatletter
+\DeclareRobustCommand*\fslist[1]{%
+\let\last@item\relax
+\let\last@sep\relax
+\def\@nlast{, }
+\setcounter{@tempe}{0}
+\@for\@ii:=#1\do{%
+\ifx\last@item\relax\else%
+   \ifx\last@sep\relax%
+   \else\@nlast\fi%
+   \ifnum\value{@tempe}>0\relax%
+      \def\last@sep{, and }%
+    \else%
+      \def\last@sep{ and }%
+   \fi%
+\textsc{\mbox{{-\last@item-}}}%
+\addtocounter{@tempe}{1}%
+\fi
+\let\last@item\@ii
+}%
+\ifx\last@item\relax\else
+\last@sep \textsc{\mbox{{-\last@item-}}}%
+\fi
+}
+\makeatother
+
+\endinput
+%%
+%% End of file `fingspell.sty'.
