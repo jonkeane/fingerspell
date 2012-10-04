@@ -6,10 +6,10 @@
 %
 %% \fs{} takes a word and outputs it as a fingerspelled word
 %
-\DeclareRobustCommand*\fs[1]{%
+\DeclareRobustCommand*\fs[2][]{%
   \let\@tempa\relax%
   \def\@tempb{-}%
-  \@tfor\@tempc:=#1\do{%
+  \@tfor\@tempc:=#2\do{%
 \textsc{\@tempa \@tempc }\let\@tempa\@tempb%
 }%
 }
